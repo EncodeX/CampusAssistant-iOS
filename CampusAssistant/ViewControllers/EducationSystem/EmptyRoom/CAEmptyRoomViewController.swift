@@ -103,7 +103,7 @@ class CAEmptyRoomViewController: UIViewController {
                 switch response.result {
                 case .Success:
                     self.classRoomArray.removeAll()
-                    var r_result: [[String]] = CARegexTool.parseEptClsrmClsrmList(response.result.value!)
+                    let r_result: [[String]] = CARegexTool.parseEptClsrmClsrmList(response.result.value!)
                     self.classRoomArray = r_result
                     self.collectionView.reloadData()
                 case .Failure(let error):
