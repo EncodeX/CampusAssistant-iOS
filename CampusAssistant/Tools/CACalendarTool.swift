@@ -217,9 +217,27 @@ class CACalendarTool: NSObject {
         let calendar = EKCalendar(forEntityType: EKEntityType.Event, eventStore: self.ekEventStore)
         calendar.title = "课程表 - 东大校园助手"
         let sourcesInEventStore = _instance.ekEventStore.sources
-        calendar.source = sourcesInEventStore.filter({ (source) -> Bool in
-            source.sourceType.rawValue == EKSourceType.Local.rawValue
-        }).first!
+        var targetSource:EKSource? = nil
+        
+        for source in sourcesInEventStore{
+            if source.sourceType == EKSourceType.CalDAV && source.title == "iCloud" {
+                targetSource = source
+            }
+        }
+        
+        if targetSource == nil {
+            for source in sourcesInEventStore{
+                if source.sourceType == EKSourceType.Local {
+                    targetSource = source
+                }
+            }
+        }
+        
+        calendar.source = targetSource!
+        
+//        calendar.source = sourcesInEventStore.filter({ (source) -> Bool in
+//            source.sourceType.rawValue == EKSourceType.Local.rawValue
+//        }).first!
         
         do{
             try self.ekEventStore.saveCalendar(calendar, commit: true)
