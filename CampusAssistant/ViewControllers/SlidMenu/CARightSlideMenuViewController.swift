@@ -216,8 +216,8 @@ class CARightSlideMenuViewController: UIViewController {
                             SVProgressHUD.showSuccessMessage("网络已断开")
                         case .Failure(let error):
                             // 来取出错误原因
-                            let errorMessage = CARegexTool.parseGateWayErrorResult(response.result.value!)
-                            SVProgressHUD.showErrorMessage(errorMessage)
+//                            let errorMessage = CARegexTool.parseGateWayErrorResult(response.result.value!)
+                            SVProgressHUD.showErrorMessage(kErrorMessage)
                             print(error)
                         }
                     }
